@@ -54,7 +54,7 @@ def antinode2(x,y):
     ynode = []
     for n in range(len(x)-1):
         for m in range(n+1,len(x)):
-            for i in range(1,50):
+            for i in range(0,50):
                 print(n,m,i)
                 xnode.append(x[n] + i*(x[n]-x[m])) #abs(x[n]-x[m])
                 ynode.append(y[n] + i*(y[n]-y[m])) 
