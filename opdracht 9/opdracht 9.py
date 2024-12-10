@@ -39,5 +39,6 @@ for i in range(numbers):
 total = np.int64(0)
 for n,i in enumerate(c2):
     if i != -1:
-        print(i, n)
+        # print(i, n)
         total += i*n
+        
