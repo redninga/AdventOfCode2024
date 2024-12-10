@@ -72,3 +72,10 @@ for n,i in enumerate(c3):
     if i != -1:
         # print(i, n)
         total2 += i*n
+#%%
+
+def findgaps(c):
+    return c
+
+
+c
