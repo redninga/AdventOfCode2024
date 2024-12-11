@@ -54,28 +54,62 @@ for n,i in enumerate(content2):
 
 values2 = copy.deepcopy(values)
 
-for n,i in enumerate(content2[::-1]):
-    if values[-(n+1)] != -1:
-        for m,j in enumerate(content2[:-(n+1)]):
-            if values[m] == -1:
-                if j >= i:
-                    values[m] = values[-(n+1)]
-                    values[-(n+1)] = -1# nog overige delen berekenen en dan
+# for n,i in enumerate(content2[::-1]):
+#     if values[-(n+1)] != -1:
+#         for m,j in enumerate(content2[:-(n+1)]):
+#             if values[m] == -1:
+#                 if j >= i:
+#                     values[m] = values[-(n+1)]
+#                     values[-(n+1)] = -1# nog overige delen berekenen en dan
 
-c3 = []
-for n in range(len(values)):
-    for i in range(int(content2[n])):
-        c3.append(values[n])
+# c3 = []
+# for n in range(len(values)):
+#     for i in range(int(content2[n])):
+#         c3.append(values[n])
     
+# total2 = np.int64(0)
+# for n,i in enumerate(c3):
+#     if i != -1:
+#         # print(i, n)
+#         total2 += i*n
+#%%
+
+def find_sequence(array, sequence):
+    # Create a sliding window view of the array
+    seq_len = len(sequence)
+    windows = np.lib.stride_tricks.sliding_window_view(array, seq_len)
+    
+    # Compare each window with the sequence
+    matches = np.all(windows == sequence, axis=1)
+    
+    # Get the starting indices of the matches
+    indices = np.where(matches)[0]
+    return indices
+
+def numberlength(array,number):
+    return len(np.where(array == number)[0])
+    
+def numberindexstart(array,number):
+    return np.where(array == number)[0][0]
+
+c3 = copy.deepcopy(c)
+
+
+
+for i in range(9999,0,-1):
+    length = numberlength(c3,i)
+    position = numberindexstart(c3,i)
+    sequence = [-1] * length
+    newposition = find_sequence(c3[:position], sequence)
+    if newposition.size != 0:
+        c3[newposition[0]:newposition[0] + length] = i
+        c3[position:position+length] = -1
+    #print(newposition[0])
+    #print(i, length, position)
+
 total2 = np.int64(0)
 for n,i in enumerate(c3):
     if i != -1:
         # print(i, n)
         total2 += i*n
-#%%
-
-def findgaps(c):
-    return c
-
-
-c
+print(total2)
