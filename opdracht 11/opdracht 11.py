@@ -40,14 +40,44 @@ for i in range(25):
     stones = stones2
 print(len(stones))
 
-now = time.time()
-stones = copy.deepcopy(content2)
+# now = time.time()
+# stones = copy.deepcopy(content2)
+# for i in range(75):
+#     stones2 = []
+#     for stone in stones:
+#         stones2.extend(rules(stone))
+#     stones = stones2
+#     print(i, len(stones))
+# print(len(stones))
+# end = time.time()
+# print(now-end)
+
+#%%
+
+stones3 = {i:1 for i in content2}
 for i in range(75):
-    stones2 = []
-    # print(i)
-    for stone in stones:
-        stones2.extend(rules(stone))
-    stones = stones2
-print(len(stones))
-end = time.time()
-print(now-end)
+    stones4 = {}
+    for j in stones3:
+        for k in rules(j):
+            if k in stones4:
+                stones4[k] += stones3[j]
+            else:
+                stones4[k] = stones3[j]
+    stones3 = stones4
+
+total = np.int64(0)
+for i in stones3:
+    total+= stones3[i]
+
+# now = time.time()
+# stones = copy.deepcopy(content2)
+# stones = [stones[0]]
+# for i in range(75):
+#     stones2 = []
+#     for stone in stones:
+#         stones2.extend(rules(stone))
+#     print(i,len(stones2)/len(stones), len(stones))
+#     stones = stones2
+# print(len(stones))
+# end = time.time()
+# print(now-end)
