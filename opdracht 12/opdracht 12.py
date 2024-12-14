@@ -116,7 +116,17 @@ def checkneighbors2(x,y):
         perimiter += 1
     return [area, perimiter, x1, y1]
 
+def checkline(x,y):
+    checked3[x,y] = 0
+    if checked2[x+1,y] == checked2[x+1,y+1]:
+        print(x,y)
+        return 1
+    else:
+        return checkline(x+1,y)
+
+
 total = 0
+total2 = 0
 for x in range(len(content2)):
     for y in range(len(content2[0])):
         if checked[x,y] == 0:
@@ -126,3 +136,24 @@ for x in range(len(content2)):
                 perimiter = result[1]
                 total += area * perimiter
                 gardens = list(zip(result[2],result[3]))
+                checked2 = np.zeros_like(checked)
+                for i in gardens:
+                    checked2[i[0],i[1]] = 1
+                perimiter2 = 0
+                checked3 = copy.deepcopy(checked2)
+                for x2 in range(len(checked2)):
+                    for y2 in range(len(checked2[0])):
+                        if checked3[x2,y2] == 1:
+                            if checked2[x2+1,y2] == 0:
+                                perimiter2 += checkline(x2, y2)
+                checked2 = np.flip(checked2,0)
+                checked3 = copy.deepcopy(checked2)
+                for x2 in range(len(checked2)):
+                    for y2 in range(len(checked2[0])):
+                        if checked3[x2,y2] == 1:
+                            if checked2[x2+1,y2] == 0:
+                                perimiter2 += checkline(x2, y2)
+                perimiter2 = perimiter2 * 2
+                total2 += perimiter2 * area
+print(total2)
+                            
